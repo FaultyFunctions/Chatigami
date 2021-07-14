@@ -1,0 +1,13 @@
+# @format
+
+useTabs: true
+semi: true
+singleQuote: true
+quoteProps: 'as-needed'
+trailingComma: 'none'
+bracketSpacing: true
+jsxBracketSameLine: false
+jsxSingleQuote: true
+arrowParens: 'always'
+insertPragma: true
+endOfLine: 'lf'

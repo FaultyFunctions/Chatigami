@@ -1,0 +1,8 @@
+dist
+node_modules
+.vscode
+.prettierignore
+.gitignore
+LICENSE
+README.md
+src/assets
