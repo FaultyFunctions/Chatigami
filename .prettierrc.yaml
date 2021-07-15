@@ -11,3 +11,4 @@ jsxSingleQuote: true
 arrowParens: 'always'
 insertPragma: true
 endOfLine: 'lf'
+printWidth: 120
