@@ -8,7 +8,7 @@ trailingComma: 'none'
 bracketSpacing: true
 jsxBracketSameLine: false
 jsxSingleQuote: true
-arrowParens: 'always'
+arrowParens: 'avoid'
 insertPragma: true
 endOfLine: 'lf'
 printWidth: 120

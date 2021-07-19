@@ -1,11 +1,13 @@
 /** @format */
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, ipcRenderer } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
 // Conditionally include the dev tools installer to load React Dev Tools
 let installExtension, REACT_DEVELOPER_TOOLS;
+
+let mainWindow;
 
 if (isDev) {
 	const devTools = require('electron-devtools-installer');
@@ -14,9 +16,10 @@ if (isDev) {
 }
 
 function createWindow() {
-	const mainWindow = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600,
+		frame: false,
 		icon: __dirname + '/assets/images/icon.ico',
 		webPreferences: {
 			nodeIntegration: false,
@@ -47,8 +50,8 @@ app.whenReady().then(() => {
 			loadExtensionOptions: { allowFileAccess: true },
 			forceDownload: false
 		})
-			.then((name) => console.log(`Added Extension:  ${name}`))
-			.catch((error) => console.log(`An error occurred: , ${error}`));
+			.then(name => console.log(`Added Extension:  ${name}`))
+			.catch(error => console.log(`An error occurred: , ${error}`));
 	}
 
 	createWindow();
@@ -75,3 +78,8 @@ app.on('activate', () => {
 
 // The code above has been adapted from a starter example in the Electron docs:
 // https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file
+
+ipcMain.on('toMain', event => {
+	console.log('CLOSE MESSAGE RECEIVED!!');
+	mainWindow.webContents.send('fromMain');
+});
