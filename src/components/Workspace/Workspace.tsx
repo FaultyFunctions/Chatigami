@@ -20,7 +20,7 @@ export default function Workspace(): JSX.Element {
 
 	useEffect(() => {
 		const workspaceContent = document.getElementById('workspace-content');
-		if (workspaceContent) {
+		if (workspaceContent !== null) {
 			//console.log('Workspace', workspaceContent.getBoundingClientRect());
 			WorkspaceStore.update(s => {
 				s.width = workspaceContent.offsetWidth;
@@ -40,6 +40,7 @@ export default function Workspace(): JSX.Element {
 	const minScale = 0.1;
 	const maxScale = 1;
 	const handleZoom = (e: Konva.KonvaEventObject<WheelEvent>): void => {
+		console.log(e.evt.offsetX);
 		WorkspaceStore.update(s => {
 			// ADJUST SCALE
 			const previousScale = s.scale;
@@ -48,8 +49,8 @@ export default function Workspace(): JSX.Element {
 			s.scale = clamp(s.scale + scaleChange, minScale, maxScale);
 
 			// ADJUST X & Y SO WE ZOOM IN AND OUT FROM MOUSE POSITION
-			const mouseX = e.evt.pageX - x;
-			const mouseY = e.evt.pageY - y;
+			const mouseX = e.evt.offsetX - x;
+			const mouseY = e.evt.offsetY - y;
 			const newX = mouseX * (s.scale / previousScale);
 			const newY = mouseY * (s.scale / previousScale);
 
