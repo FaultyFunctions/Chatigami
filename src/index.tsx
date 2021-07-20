@@ -4,9 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { loader } from '@monaco-editor/react';
-import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
+// import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import { ChakraProvider } from '@chakra-ui/react';
-import { Global, css } from '@emotion/react';
 import 'focus-visible/dist/focus-visible';
 import './index.css';
 
@@ -22,18 +21,10 @@ loader.config({
 	}
 });
 
-// TURN OFF BUTTON OUTLINE FOR NORMAL NAVIGATION BUT KEEP FOR KEYBOARD NAVIGATION
-const GlobalStyles = css`
-	.js-focus-visible :focus:not([data-focus-visible-added]) {
-		outline: none;
-		box-shadow: none;
-	}
-`;
-
 ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider resetCSS>
-			<Global styles={GlobalStyles} />
+			{/* <Global styles={GlobalStyles} /> */}
 			<App />
 		</ChakraProvider>
 	</React.StrictMode>,

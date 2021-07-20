@@ -5,12 +5,13 @@ export {};
 declare global {
 	interface Window {
 		electron: {
-			send: {
-				(channel: string, data?: any[]): void;
-			};
-			receive: {
-				(channel: string, func?: function): void;
-			};
+			send(channel: string, ...args: any[]): void;
+			receive(channel: string, callback: (...args: any[]) => void): void;
+			once(channel: string, callback: (...args: any[]) => void): void;
+			minimize(): void;
+			restore(): void;
+			maximize(): void;
+			close(): void;
 		};
 	}
 }

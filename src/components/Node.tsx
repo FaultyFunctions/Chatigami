@@ -1,32 +1,28 @@
 /** @format */
 
-import { NodeStore, NodeObject } from 'stores/NodeStore';
+// import { NodeStore, NodeObject } from 'stores/NodeStore';
 import { WorkspaceStore } from 'stores/WorkspaceStore';
 import type Konva from 'konva';
 import { Rect, Transformer } from 'react-konva';
 import { stepify } from 'utilities/math';
 import { useRef } from 'react';
 import type { Box } from 'konva/lib/shapes/Transformer';
-import { Html } from 'react-konva-utils';
-import { NodeConfig } from 'konva/lib/Node';
 
 export default function Node(): JSX.Element {
-	const { workspaceX, workspaceY, workspaceWidth, workspaceScale, gridEnabled, gridSize } = WorkspaceStore.useState(
-		s => ({
-			workspaceX: s.x,
-			workspaceY: s.y,
-			workspaceWidth: s.width,
-			workspaceScale: s.scale,
-			gridEnabled: s.gridEnabled,
-			gridSize: s.gridSize
-		})
-	);
+	const { workspaceX, workspaceY, workspaceScale, gridEnabled, gridSize } = WorkspaceStore.useState(s => ({
+		workspaceX: s.x,
+		workspaceY: s.y,
+		workspaceScale: s.scale,
+		gridEnabled: s.gridEnabled,
+		gridSize: s.gridSize
+	}));
 
 	const handleDrag = (e: Konva.KonvaEventObject<DragEvent>) => {
 		const currentX = e.target.getAbsolutePosition().x;
 		const currentY = e.target.getAbsolutePosition().y;
-		const mouseOffsetX = e.evt.offsetX - currentX;
-		const mouseOffsetY = e.evt.offsetY - currentY;
+		// * I was trying to figure out how to improve dragging nodes around
+		// const mouseOffsetX = e.evt.offsetX - currentX;
+		// const mouseOffsetY = e.evt.offsetY - currentY;
 		const scaledGridSize = gridSize * workspaceScale;
 		e.target.setAbsolutePosition({
 			x: gridEnabled ? stepify(currentX, scaledGridSize) + (workspaceX % scaledGridSize) : currentX,
@@ -47,8 +43,6 @@ export default function Node(): JSX.Element {
 	const handleResize = (oldBox: Box, newBox: Box): Box => {
 		const scaledGridSize = gridSize * workspaceScale;
 
-		//console.log(oldBox, newBox);
-
 		const steppedMinimum = stepify(100, scaledGridSize);
 
 		// DOING: MAKE RESIZING NOT JANK
@@ -67,7 +61,6 @@ export default function Node(): JSX.Element {
 			} else {
 				newBox.width = stepify(newBox.width, scaledGridSize);
 				newBox.height = stepify(newBox.height, scaledGridSize);
-				//console.log('return new box');
 				return newBox;
 			}
 		}

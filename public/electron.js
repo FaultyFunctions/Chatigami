@@ -7,7 +7,7 @@ const path = require('path');
 // Conditionally include the dev tools installer to load React Dev Tools
 let installExtension, REACT_DEVELOPER_TOOLS;
 
-let mainWindow;
+let mainWindow = null;
 
 if (isDev) {
 	const devTools = require('electron-devtools-installer');
@@ -15,18 +15,27 @@ if (isDev) {
 	REACT_DEVELOPER_TOOLS = devTools.REACT_DEVELOPER_TOOLS;
 }
 
-function createWindow() {
+async function createWindow() {
 	mainWindow = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: 1440,
+		height: 960,
 		frame: false,
 		icon: __dirname + '/assets/images/icon.ico',
+		show: false,
+		backgroundColor: '#2e2c29',
 		webPreferences: {
 			nodeIntegration: false,
 			contextIsolation: true,
 			enableRemoteModule: false,
 			preload: path.join(__dirname, 'preload.js')
 		}
+	});
+
+	//mainWindow.hide();
+
+	mainWindow.once('ready-to-show', () => {
+		mainWindow.show();
+		mainWindow.focus();
 	});
 
 	// Load from localhost if in development
@@ -79,7 +88,18 @@ app.on('activate', () => {
 // The code above has been adapted from a starter example in the Electron docs:
 // https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file
 
-ipcMain.on('toMain', event => {
-	console.log('CLOSE MESSAGE RECEIVED!!');
-	mainWindow.webContents.send('fromMain');
+ipcMain.on('toMain', (event, ...args) => {
+	//mainWindow.webContents.send();
+});
+
+ipcMain.on('minimize', () => {
+	mainWindow.minimize();
+});
+
+ipcMain.on('restore', () => {
+	mainWindow.restore();
+});
+
+ipcMain.on('maximize', () => {
+	mainWindow.maximize();
 });
