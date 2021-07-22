@@ -17,14 +17,14 @@ export default function Workspace(): JSX.Element {
 		gridEnabled: s.gridEnabled
 	}));
 
-	const handleDrag = (e: Konva.KonvaEventObject<DragEvent>): void => {
+	function handleDrag(e: Konva.KonvaEventObject<DragEvent>): void {
 		WorkspaceStore.update(s => {
 			s.x = e.target.attrs.x;
 			s.y = e.target.attrs.y;
 		});
-	};
+	}
 
-	const handleZoom = (e: Konva.KonvaEventObject<WheelEvent>): void => {
+	function handleZoom(e: Konva.KonvaEventObject<WheelEvent>): void {
 		const scaleFactor = 0.1;
 		const minScale = 0.1;
 		const maxScale = 1;
@@ -47,7 +47,7 @@ export default function Workspace(): JSX.Element {
 			s.x += deltaX;
 			s.y += deltaY;
 		});
-	};
+	}
 
 	const workspaceStageProps: StageProps = {
 		width: width,

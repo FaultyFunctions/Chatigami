@@ -8,12 +8,12 @@ export default function ControlButtonCluster() {
 	const [minimized, setMinimized] = useBoolean(false);
 	const [minMouseOver, setMinMouseOver] = useBoolean(false);
 
-	const handleClose: React.MouseEventHandler<HTMLButtonElement> = () => {
+	function handleClose(): void {
 		window.close();
-	};
+	}
 
 	// Dumb stuff to make sure minimize button doesn't get stuck after a minimize
-	const handleMinimize: React.MouseEventHandler<HTMLButtonElement> = (): void => {
+	function handleMinimize(): void {
 		setMinimized.on();
 		setMinMouseOver.off();
 		window.addEventListener(
@@ -25,16 +25,16 @@ export default function ControlButtonCluster() {
 			{ once: true }
 		);
 		window.electron.minimize();
-	};
+	}
 
-	const handleMaximizeAndRestore: React.MouseEventHandler<HTMLButtonElement> = () => {
+	function handleMaximizeAndRestore(): void {
 		if (maximized) {
 			window.electron.restore();
 		} else {
 			window.electron.maximize();
 		}
 		setMaximized.toggle();
-	};
+	}
 
 	return (
 		<>

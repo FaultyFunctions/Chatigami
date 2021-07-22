@@ -12,7 +12,7 @@ export default function TitleBarMenus(): JSX.Element {
 	const [lastOpenedButton, setLastOpenedButton] = useState<HTMLButtonElement>();
 	const [menuOpen, setMenuOpen] = useBoolean(false);
 
-	const handleHoverOpen: React.MouseEventHandler<HTMLButtonElement> = e => {
+	function handleHoverOpen(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
 		if (menuOpen) {
 			if (lastOpenedButton) {
 				lastOpenedButton.click();
@@ -20,12 +20,12 @@ export default function TitleBarMenus(): JSX.Element {
 			setLastOpenedButton(e.currentTarget);
 			e.currentTarget.click();
 		}
-	};
+	}
 
-	const handleClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+	function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
 		setLastOpenedButton(e.currentTarget);
 		setMenuOpen.on();
-	};
+	}
 
 	const menuProps: Omit<MenuProps, 'children'> = {
 		autoSelect: false,
