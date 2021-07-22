@@ -1,6 +1,14 @@
 /** @format */
 
-import { MenuButton, Button, StyleProps, ComponentWithAs, MenuButtonProps, forwardRef } from '@chakra-ui/react';
+import {
+	MenuButton,
+	Button,
+	StyleProps,
+	ComponentWithAs,
+	MenuButtonProps,
+	forwardRef,
+	ButtonProps
+} from '@chakra-ui/react';
 
 const MenuBarButton: ComponentWithAs<'button', MenuButtonProps> = forwardRef<MenuButtonProps, 'button'>(
 	({ children, ...rest }, ref) => {
@@ -12,16 +20,7 @@ const MenuBarButton: ComponentWithAs<'button', MenuButtonProps> = forwardRef<Men
 		};
 
 		return (
-			<MenuButton
-				as={Button}
-				size='md'
-				cursor='default'
-				variant='ghost'
-				sx={{ ...styles, WebkitAppRegion: 'no-drag' }}
-				_hover={{ background: 'white' }}
-				ref={ref}
-				{...rest}
-			>
+			<MenuButton ref={ref} {...menuButtonProps} {...rest}>
 				{children}
 			</MenuButton>
 		);
@@ -29,3 +28,18 @@ const MenuBarButton: ComponentWithAs<'button', MenuButtonProps> = forwardRef<Men
 );
 
 export default MenuBarButton;
+
+const menuButtonProps: ButtonProps = {
+	as: Button,
+	size: 'md',
+	cursor: 'default',
+	variant: 'ghost',
+	sx: {
+		height: '100%',
+		borderRadius: '0px',
+		fontWeight: 'normal',
+		padding: '0px 8px',
+		WebkitAppRegion: 'no-drag'
+	},
+	_hover: { bg: 'white' }
+};

@@ -1,12 +1,11 @@
 /** @format */
 
 import type Konva from 'konva';
-import { Stage, Layer } from 'react-konva';
-import { clamp } from 'utilities/math';
-import { WorkspaceStore } from 'stores/WorkspaceStore';
 import WorkspaceGrid from 'components/Workspace/WorkspaceGrid';
 import Node from 'components/Node';
-import { useEffect } from 'react';
+import { Stage, Layer, StageProps } from 'react-konva';
+import { clamp } from 'utilities/math';
+import { WorkspaceStore } from 'stores/WorkspaceStore';
 
 export default function Workspace(): JSX.Element {
 	const { x, y, width, height, scale, gridEnabled } = WorkspaceStore.useState(s => ({
@@ -18,17 +17,6 @@ export default function Workspace(): JSX.Element {
 		gridEnabled: s.gridEnabled
 	}));
 
-	useEffect(() => {
-		const workspaceContent = document.getElementById('workspace-content');
-		if (workspaceContent !== null) {
-			//console.log('Workspace', workspaceContent.getBoundingClientRect());
-			WorkspaceStore.update(s => {
-				s.width = workspaceContent.offsetWidth;
-				s.height = workspaceContent.offsetHeight;
-			});
-		}
-	}, []);
-
 	const handleDrag = (e: Konva.KonvaEventObject<DragEvent>): void => {
 		WorkspaceStore.update(s => {
 			s.x = e.target.attrs.x;
@@ -36,11 +24,11 @@ export default function Workspace(): JSX.Element {
 		});
 	};
 
-	const scaleFactor = 0.1;
-	const minScale = 0.1;
-	const maxScale = 1;
 	const handleZoom = (e: Konva.KonvaEventObject<WheelEvent>): void => {
-		console.log(e.evt.offsetX);
+		const scaleFactor = 0.1;
+		const minScale = 0.1;
+		const maxScale = 1;
+
 		WorkspaceStore.update(s => {
 			// ADJUST SCALE
 			const previousScale = s.scale;
@@ -61,22 +49,23 @@ export default function Workspace(): JSX.Element {
 		});
 	};
 
+	const workspaceStageProps: StageProps = {
+		width: width,
+		height: height,
+		x: x,
+		y: y,
+		draggable: true,
+		onDragMove: handleDrag,
+		onWheel: handleZoom,
+		style: {
+			backgroundColor: 'lightgray'
+		}
+	};
+
 	return (
-		<Stage
-			name={'Workspace Stage'}
-			width={width}
-			height={height}
-			x={x}
-			y={y}
-			draggable
-			onDragMove={handleDrag}
-			onWheel={handleZoom}
-			style={{ backgroundColor: 'lightgray', overflow: 'hidden', width: '100%', height: '100%' }}
-		>
-			<Layer name={'Grid Layer'} id={'grid-layer'}>
-				{gridEnabled && <WorkspaceGrid />}
-			</Layer>
-			<Layer name={'Node Layer'} id={'node-layer'} scale={{ x: scale, y: scale }}>
+		<Stage {...workspaceStageProps}>
+			<Layer id={'grid-layer'}>{gridEnabled && <WorkspaceGrid />}</Layer>
+			<Layer id={'node-layer'} scale={{ x: scale, y: scale }}>
 				<Node />
 			</Layer>
 		</Stage>

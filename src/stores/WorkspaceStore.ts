@@ -26,6 +26,11 @@ const resizeWorkspaceObserver = new ResizeObserver(elements => {
 	for (let element of elements) {
 		const rect = element.contentRect;
 		WorkspaceStore.update(s => {
+			// IF RUNNING FOR THE FIRST TIME, CENTER CANVAS ON (0, 0)
+			if (s.width === 0 && s.height === 0) {
+				s.x = rect.width * 0.5;
+				s.y = rect.height * 0.5;
+			}
 			s.width = rect.width;
 			s.height = rect.height;
 		});

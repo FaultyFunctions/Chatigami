@@ -1,10 +1,10 @@
 /** @format */
 
-import React from 'react';
+import { memo } from 'react';
 import { Path } from 'react-konva';
 import { WorkspaceStore } from 'stores/WorkspaceStore';
 
-export default React.memo(function WorkspaceGrid(): JSX.Element {
+export default function WorkspaceGrid(): JSX.Element {
 	const { x, y, width, height, scale, gridSize } = WorkspaceStore.useState(s => ({
 		x: s.x,
 		y: s.y,
@@ -17,7 +17,7 @@ export default React.memo(function WorkspaceGrid(): JSX.Element {
 	const gridData: string = calculateGridString(x, y, width, height, scale, gridSize);
 
 	return <Path data={gridData} stroke={'grey'} strokeWidth={1} />;
-});
+}
 
 function calculateGridString(x: number, y: number, width: number, height: number, scale: number, size: number): string {
 	let data: string = '';

@@ -9,7 +9,7 @@ import { ContextMenuList } from 'components/ContextMenu/ContextMenuList';
 import { ContextMenuItem } from 'components/ContextMenu/ContextMenuItem';
 // import { ThemeSwitcherProvider, useThemeSwitcher } from 'react-css-theme-switcher';
 // import { SettingsStore } from 'stores/SettingsStore';
-import { Flex, Box, Divider } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import './App.css';
 
 export default function App(): JSX.Element {

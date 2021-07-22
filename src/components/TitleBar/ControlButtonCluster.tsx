@@ -1,6 +1,6 @@
 /** @format */
 
-import { Flex, IconButton, Icon, useBoolean } from '@chakra-ui/react';
+import { Flex, IconButton, Icon, useBoolean, IconButtonProps } from '@chakra-ui/react';
 import { VscChromeClose, VscChromeMaximize, VscChromeRestore, VscChromeMinimize } from 'react-icons/vsc';
 
 export default function ControlButtonCluster() {
@@ -8,12 +8,12 @@ export default function ControlButtonCluster() {
 	const [minimized, setMinimized] = useBoolean(false);
 	const [minMouseOver, setMinMouseOver] = useBoolean(false);
 
-	const handleClose = () => {
+	const handleClose: React.MouseEventHandler<HTMLButtonElement> = () => {
 		window.close();
 	};
 
 	// Dumb stuff to make sure minimize button doesn't get stuck after a minimize
-	const handleMinimize = (e: any): void => {
+	const handleMinimize: React.MouseEventHandler<HTMLButtonElement> = (): void => {
 		setMinimized.on();
 		setMinMouseOver.off();
 		window.addEventListener(
@@ -27,21 +27,13 @@ export default function ControlButtonCluster() {
 		window.electron.minimize();
 	};
 
-	const handleMaximizeAndRestore = (e: any) => {
+	const handleMaximizeAndRestore: React.MouseEventHandler<HTMLButtonElement> = () => {
 		if (maximized) {
 			window.electron.restore();
 		} else {
 			window.electron.maximize();
 		}
 		setMaximized.toggle();
-	};
-
-	const defaultProps = {
-		borderRadius: '0px',
-		p: '0px 25px',
-		cursor: 'default',
-		w: '36px',
-		h: '100%'
 	};
 
 	return (
@@ -56,7 +48,7 @@ export default function ControlButtonCluster() {
 						sx={{ WebkitAppRegion: 'no-drag', bg: minMouseOver && !minimized ? 'white' : 'transparent' }}
 						aria-label='Maximize'
 						icon={<Icon as={VscChromeMinimize} />}
-						{...defaultProps}
+						{...baseControlButtonProps}
 					/>
 					<IconButton
 						onClick={handleMaximizeAndRestore}
@@ -64,7 +56,7 @@ export default function ControlButtonCluster() {
 						sx={{ WebkitAppRegion: 'no-drag' }}
 						aria-label={maximized ? 'Restore' : 'Maximize'}
 						icon={<Icon as={maximized ? VscChromeRestore : VscChromeMaximize} />}
-						{...defaultProps}
+						{...baseControlButtonProps}
 					/>
 					<IconButton
 						onClick={handleClose}
@@ -73,10 +65,18 @@ export default function ControlButtonCluster() {
 						sx={{ WebkitAppRegion: 'no-drag' }}
 						aria-label='Maximize'
 						icon={<Icon as={VscChromeClose} />}
-						{...defaultProps}
+						{...baseControlButtonProps}
 					/>
 				</Flex>
 			)}
 		</>
 	);
 }
+
+const baseControlButtonProps: Omit<IconButtonProps, 'aria-label'> = {
+	borderRadius: '0px',
+	p: '0px 25px',
+	cursor: 'default',
+	w: '36px',
+	h: '100%'
+};

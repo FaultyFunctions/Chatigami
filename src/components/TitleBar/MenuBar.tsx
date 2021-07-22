@@ -5,50 +5,57 @@ import FileMenuList from './MenuLists/FileMenuList';
 import EditMenuList from './MenuLists/EditMenuList';
 import ViewMenuList from './MenuLists/ViewMenuList';
 import HelpMenuList from './MenuLists/HelpMenuList';
-import { Menu, useBoolean } from '@chakra-ui/react';
+import { Menu, MenuButtonProps, MenuProps, useBoolean } from '@chakra-ui/react';
 import { useState } from 'react';
 
 export default function TitleBarMenus(): JSX.Element {
 	const [lastOpenedButton, setLastOpenedButton] = useState<HTMLButtonElement>();
 	const [menuOpen, setMenuOpen] = useBoolean(false);
 
-	const handleHoverOpen = (e: any) => {
+	const handleHoverOpen: React.MouseEventHandler<HTMLButtonElement> = e => {
 		if (menuOpen) {
-			lastOpenedButton!.click();
-			setLastOpenedButton(e.target);
-			e.target.click();
+			if (lastOpenedButton) {
+				lastOpenedButton.click();
+			}
+			setLastOpenedButton(e.currentTarget);
+			e.currentTarget.click();
 		}
 	};
 
-	const handleClick = (e: any) => {
-		setLastOpenedButton(e.target);
+	const handleClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+		setLastOpenedButton(e.currentTarget);
 		setMenuOpen.on();
+	};
+
+	const menuProps: Omit<MenuProps, 'children'> = {
+		autoSelect: false,
+		placement: 'bottom-end',
+		offset: [0, 0],
+		onOpen: setMenuOpen.on,
+		onClose: setMenuOpen.off
+	};
+
+	const menuButtonProps: MenuButtonProps = {
+		onMouseEnter: handleHoverOpen,
+		onClick: handleClick
 	};
 
 	return (
 		<>
-			<Menu onOpen={setMenuOpen.on} onClose={setMenuOpen.off} offset={[0, 0]} placement='bottom-end' autoSelect={false}>
-				<MenuBarButton onMouseEnter={handleHoverOpen} onClick={handleClick}>
-					File
-				</MenuBarButton>
+			<Menu {...menuProps}>
+				<MenuBarButton {...menuButtonProps}>File</MenuBarButton>
 				<FileMenuList />
 			</Menu>
-			<Menu onOpen={setMenuOpen.on} onClose={setMenuOpen.off} offset={[0, 0]} placement='bottom-end' autoSelect={false}>
-				<MenuBarButton onMouseEnter={handleHoverOpen} onClick={handleClick}>
-					Edit
-				</MenuBarButton>
+			<Menu {...menuProps}>
+				<MenuBarButton {...menuButtonProps}>Edit</MenuBarButton>
 				<EditMenuList />
 			</Menu>
-			<Menu onOpen={setMenuOpen.on} onClose={setMenuOpen.off} offset={[0, 0]} placement='bottom-end' autoSelect={false}>
-				<MenuBarButton onMouseEnter={handleHoverOpen} onClick={handleClick}>
-					View
-				</MenuBarButton>
+			<Menu {...menuProps}>
+				<MenuBarButton {...menuButtonProps}>View</MenuBarButton>
 				<ViewMenuList />
 			</Menu>
-			<Menu onOpen={setMenuOpen.on} onClose={setMenuOpen.off} offset={[0, 0]} placement='bottom-end' autoSelect={false}>
-				<MenuBarButton onMouseEnter={handleHoverOpen} onClick={handleClick}>
-					Help
-				</MenuBarButton>
+			<Menu {...menuProps}>
+				<MenuBarButton {...menuButtonProps}>Help</MenuBarButton>
 				<HelpMenuList />
 			</Menu>
 		</>
