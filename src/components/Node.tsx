@@ -7,7 +7,6 @@ import { Rect } from 'react-konva';
 import { stepify } from 'utilities/math';
 import { KonvaEventObject, NodeConfig } from 'konva/lib/Node';
 import { useRef, useState } from 'react';
-import { sign } from 'crypto';
 import { Vector2d } from 'konva/lib/types';
 
 export default function Node(): JSX.Element {
@@ -19,107 +18,50 @@ export default function Node(): JSX.Element {
 		gridSize: s.gridSize
 	}));
 
-	const [prevPos, setPrevPos] = useState({
-		x: 0,
-		y: 0
-	});
+	const nodeRef = useRef<Konva.Rect>(null);
 
-	const [offset, setOffset] = useState({
-		x: 0,
-		y: 0
-	});
+	function handleDragBound(pos: Konva.Vector2d): Konva.Vector2d {
+		if (gridEnabled) {
+			let newX = nodeRef.current!.absolutePosition().x;
+			let newY = nodeRef.current!.absolutePosition().y;
+			let offsetX = pos.x - nodeRef.current!.absolutePosition().x;
+			let offsetY = pos.y - nodeRef.current!.absolutePosition().y;
 
-	const rectRef = useRef<Konva.Rect>(null);
+			let scaledGridSize = gridSize * workspaceScale;
 
-	function handleDragStart(e: KonvaEventObject<DragEvent>): void {
-		// const { x, y } = toWorkspaceCoords(e.evt.pageX, e.evt.pageY);
+			if (Math.abs(offsetX) >= scaledGridSize / 2) {
+				newX = nodeRef.current!.absolutePosition().x + scaledGridSize * Math.sign(offsetX);
+			}
 
-		// const rectX = rectRef.current!.x();
-		// const rectY = rectRef.current!.y();
+			if (Math.abs(offsetY) >= scaledGridSize / 2) {
+				newY = nodeRef.current!.absolutePosition().y + scaledGridSize * Math.sign(offsetY);
+			}
 
-		// setOffset({
-		// 	x: gridEnabled ? stepify(x - rectX, gridSize) : x - rectX,
-		// 	y: gridEnabled ? stepify(y - rectY, gridSize) : y - rectY
-		// });
-		// setOffset(e.currentTarget.getRelativePointerPosition());
-		setOffset({ x: 0, y: 0 });
+			return {
+				x: newX,
+				y: newY
+			};
+		} else {
+			return pos;
+		}
 	}
 
 	// DOING: FIGURE OUT BETTER DRAG FUNCTION
 	function handleDrag(e: Konva.KonvaEventObject<DragEvent>): void {
 		e.cancelBubble = true;
-
-		// const { deltaX, deltaY } = {
-		// 	deltaX: e.currentTarget.x() - prevPos.x,
-		// 	deltaY: e.currentTarget.y() - prevPos.y
-		// };
-
-		// setOffset({
-		// 	x: offset.x + deltaX,
-		// 	y: offset.y + deltaY
-		// });
-
-		// if (Math.abs(offset.x) > 50) {
-		// 	e.currentTarget.x(e.currentTarget.x() + gridSize * Math.sign(offset.x));
-		// 	setOffset({
-		// 		x: 0,
-		// 		y: offset.y
-		// 	});
-		// } else {
-		// 	//e.currentTarget.x(prevPos.x);
-		// }
-
-		// // if (Math.abs(offset.y) > 50) {
-		// // 	e.currentTarget.y(stepify(e.currentTarget.y() + 50, gridSize));
-		// // 	setOffset({
-		// // 		x: offset.x,
-		// // 		y: 0
-		// // 	});
-		// // } else {
-		// // 	e.currentTarget.y(prevPos.y);
-		// // }
-
-		// setPrevPos({
-		// 	x: e.currentTarget.x(),
-		// 	y: e.currentTarget.y()
-		// });
-
-		console.log(offset.x);
-
-		// const pageX = e.evt.pageX;
-		// const pageY = e.evt.pageY;
-
-		// let { x, y } = toWorkspaceCoords(pageX, pageY);
-
-		// x -= offset.x;
-		// y -= offset.y;
-
-		// const rectX = rectRef.current!.x();
-		// const rectY = rectRef.current!.y();
-
-		// let movedX = x - rectX;
-		// let movedY = y - rectY;
-
-		// e.currentTarget.setPosition({
-		// 	x: stepify(rectX + movedX, gridSize),
-		// 	y: stepify(rectY + movedY, gridSize)
-		// });
 	}
-
-	function handleDragEnd(e: Konva.KonvaEventObject<DragEvent>): void {}
 
 	return (
 		<>
 			<Rect
-				ref={rectRef}
+				ref={nodeRef}
 				width={200}
 				height={200}
 				cornerRadius={5}
 				fill={'black'}
 				draggable
-				onDragStart={handleDragStart}
 				onDragMove={handleDrag}
-				onDragEnd={handleDragEnd}
+				dragBoundFunc={handleDragBound}
 			/>
 		</>
 	);

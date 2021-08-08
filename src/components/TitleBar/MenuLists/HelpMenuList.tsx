@@ -14,7 +14,7 @@ export default function HelpMenuList() {
 			<MenuItem>Syntax Reference</MenuItem>
 			<MenuItem onClick={shortcutModal.onOpen}>Shortcuts Reference</MenuItem>
 			<ShortcutModal isOpen={shortcutModal.isOpen} onClose={shortcutModal.onClose} />
-			<MenuItem>Open Wiki</MenuItem>
+			<MenuItem>Open Documentation</MenuItem>
 			<MenuDivider />
 			<MenuItem>View License</MenuItem>
 			<MenuItem>Suggest a Feature</MenuItem>
