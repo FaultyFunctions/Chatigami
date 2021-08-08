@@ -46,7 +46,6 @@ export default function Node(): JSX.Element {
 		}
 	}
 
-	// DOING: FIGURE OUT BETTER DRAG FUNCTION
 	function handleDrag(e: Konva.KonvaEventObject<DragEvent>): void {
 		e.cancelBubble = true;
 	}
