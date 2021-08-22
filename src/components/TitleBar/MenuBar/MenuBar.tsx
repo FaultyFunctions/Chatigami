@@ -1,10 +1,10 @@
 /** @format */
 
 import MenuBarButton from './MenuBarButton';
-import FileMenuList from './MenuLists/FileMenuList';
-import EditMenuList from './MenuLists/EditMenuList';
-import ViewMenuList from './MenuLists/ViewMenuList';
-import HelpMenuList from './MenuLists/HelpMenuList';
+import FileMenu from './FileMenu';
+import EditMenu from './EditMenu';
+import ViewMenu from './ViewMenu';
+import HelpMenu from './HelpMenu';
 import { Menu, MenuButtonProps, MenuProps, useBoolean } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -44,19 +44,19 @@ export default function TitleBarMenus(): JSX.Element {
 		<>
 			<Menu {...menuProps}>
 				<MenuBarButton {...menuButtonProps}>File</MenuBarButton>
-				<FileMenuList />
+				<FileMenu />
 			</Menu>
 			<Menu {...menuProps}>
 				<MenuBarButton {...menuButtonProps}>Edit</MenuBarButton>
-				<EditMenuList />
+				<EditMenu />
 			</Menu>
 			<Menu {...menuProps}>
 				<MenuBarButton {...menuButtonProps}>View</MenuBarButton>
-				<ViewMenuList />
+				<ViewMenu />
 			</Menu>
 			<Menu {...menuProps}>
 				<MenuBarButton {...menuButtonProps}>Help</MenuBarButton>
-				<HelpMenuList />
+				<HelpMenu />
 			</Menu>
 		</>
 	);

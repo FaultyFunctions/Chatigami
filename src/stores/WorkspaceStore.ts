@@ -10,6 +10,8 @@ interface IWorkspaceStore {
 	scale: number;
 	gridEnabled: boolean;
 	gridSize: number;
+	mouseX: number;
+	mouseY: number;
 }
 
 export const WorkspaceStore = new Store<IWorkspaceStore>({
@@ -19,7 +21,9 @@ export const WorkspaceStore = new Store<IWorkspaceStore>({
 	height: 0,
 	scale: 1,
 	gridEnabled: true,
-	gridSize: 100
+	gridSize: 100,
+	mouseX: 0,
+	mouseY: 0
 });
 
 const resizeWorkspaceObserver = new ResizeObserver(elements => {

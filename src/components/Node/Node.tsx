@@ -4,12 +4,10 @@
 import { WorkspaceStore } from 'stores/WorkspaceStore';
 import type Konva from 'konva';
 import { Rect } from 'react-konva';
-import { stepify } from 'utilities/math';
-import { KonvaEventObject, NodeConfig } from 'konva/lib/Node';
-import { useRef, useState } from 'react';
-import { Vector2d } from 'konva/lib/types';
+import { Node as NodeType } from 'stores/NodeStore';
+import { useRef } from 'react';
 
-export default function Node(): JSX.Element {
+export default function Node({ node }: { node: NodeType }): JSX.Element {
 	const { workspaceX, workspaceY, workspaceScale, gridEnabled, gridSize } = WorkspaceStore.useState(s => ({
 		workspaceX: s.x,
 		workspaceY: s.y,
@@ -51,26 +49,17 @@ export default function Node(): JSX.Element {
 	}
 
 	return (
-		<>
-			<Rect
-				ref={nodeRef}
-				width={200}
-				height={200}
-				cornerRadius={5}
-				fill={'black'}
-				draggable
-				onDragMove={handleDrag}
-				dragBoundFunc={handleDragBound}
-			/>
-		</>
+		<Rect
+			ref={nodeRef}
+			x={node.x}
+			y={node.y}
+			width={node.width}
+			height={node.height}
+			cornerRadius={5}
+			fill={node.color}
+			draggable
+			onDragMove={handleDrag}
+			dragBoundFunc={handleDragBound}
+		/>
 	);
-}
-
-function toWorkspaceCoords(pageX: number, pageY: number) {
-	const { x: workspaceX, y: workspaceY, scale, gridEnabled, gridSize } = WorkspaceStore.getRawState();
-
-	return {
-		x: gridEnabled ? stepify((pageX - workspaceX) / scale, gridSize) : (pageX - workspaceX) / scale,
-		y: gridEnabled ? stepify((pageY - workspaceY) / scale, gridSize) : (pageY - workspaceY) / scale
-	};
 }

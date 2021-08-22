@@ -3,9 +3,15 @@
 import { MenuDivider, MenuItem, MenuList } from '@chakra-ui/react';
 
 export default function FileMenuList() {
+	function handleNewFileClick() {
+		console.log('Test');
+	}
+
 	return (
 		<MenuList borderRadius='0px'>
-			<MenuItem command='Ctrl+N'>New File</MenuItem>
+			<MenuItem command='Ctrl+N' onClick={handleNewFileClick}>
+				New File
+			</MenuItem>
 			<MenuDivider />
 			<MenuItem command='Ctrl+O'>Open File...</MenuItem>
 			<MenuItem command='Ctrl+Shift+O'>Open Folder...</MenuItem>

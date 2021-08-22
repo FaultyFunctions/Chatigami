@@ -1,8 +1,9 @@
 /** @format */
 
-import TitleBar from 'components/TitleBar/TitleBar';
-import Explorer from 'components/Explorer/Explorer';
-import Workspace from 'components/Workspace/Workspace';
+import TitleBar from 'components/TitleBar';
+import Sidebar from 'components/Sidebar';
+import Workspace from 'components/Workspace';
+import StatusBar from 'components/StatusBar';
 import { ContextMenu } from 'components/ContextMenu/ContextMenu';
 import { ContextMenuTrigger } from 'components/ContextMenu/ContextMenuTrigger';
 import { ContextMenuList } from 'components/ContextMenu/ContextMenuList';
@@ -23,7 +24,8 @@ export default function App(): JSX.Element {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Explorer />
+			<Sidebar />
+			<StatusBar />
 		</>
 	);
 }

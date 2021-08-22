@@ -1,11 +1,13 @@
 /** @format */
 
 import type Konva from 'konva';
-import WorkspaceGrid from 'components/Workspace/WorkspaceGrid';
+import Grid from 'components/Workspace/Grid';
 import Node from 'components/Node';
 import { Stage, Layer, StageProps } from 'react-konva';
 import { clamp } from 'utilities/math';
 import { WorkspaceStore } from 'stores/WorkspaceStore';
+import { NodeStore } from 'stores/NodeStore';
+import { KonvaEventObject } from 'konva/lib/Node';
 
 export default function Workspace(): JSX.Element {
 	const { x, y, width, height, scale, gridEnabled } = WorkspaceStore.useState(s => ({
@@ -49,6 +51,14 @@ export default function Workspace(): JSX.Element {
 		});
 	}
 
+	// Updates mouse position
+	const handleMouseMove = function (e: KonvaEventObject<MouseEvent>): void {
+		WorkspaceStore.update(s => {
+			s.mouseX = Math.round(e.currentTarget.getRelativePointerPosition().x / scale);
+			s.mouseY = Math.round(e.currentTarget.getRelativePointerPosition().y / scale);
+		});
+	};
+
 	const workspaceStageProps: StageProps = {
 		width: width,
 		height: height,
@@ -57,16 +67,21 @@ export default function Workspace(): JSX.Element {
 		draggable: true,
 		onDragMove: handleDrag,
 		onWheel: handleZoom,
+		onMouseMove: handleMouseMove,
 		style: {
 			backgroundColor: 'lightgray'
 		}
 	};
 
+	// Grab all our nodes
+	const { nodeList } = NodeStore.useState();
+	const nodes = nodeList.map((node, index) => <Node node={node} key={index} />);
+
 	return (
 		<Stage {...workspaceStageProps}>
-			<Layer id={'grid-layer'}>{gridEnabled && <WorkspaceGrid />}</Layer>
+			<Layer id={'grid-layer'}>{gridEnabled && <Grid />}</Layer>
 			<Layer id={'node-layer'} scale={{ x: scale, y: scale }}>
-				<Node />
+				{nodes}
 			</Layer>
 		</Stage>
 	);
