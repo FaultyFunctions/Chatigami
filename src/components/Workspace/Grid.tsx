@@ -1,6 +1,5 @@
 /** @format */
 
-import { memo } from 'react';
 import { Path } from 'react-konva';
 import { WorkspaceStore } from 'stores/WorkspaceStore';
 

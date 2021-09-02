@@ -19,8 +19,6 @@ export class Node {
 	height: number;
 	color: string;
 
-	// DOING: Figure out how to create nodes and pass their data as props in Workspace
-
 	constructor(title: string, x: number, y: number) {
 		const nodeStore = NodeStore.getRawState();
 
@@ -28,8 +26,8 @@ export class Node {
 		this.title = title;
 		this.x = x;
 		this.y = y;
-		this.width = 200;
-		this.height = 200;
+		this.width = 240;
+		this.height = 240;
 		this.color = 'black';
 
 		NodeStore.update(s => {
@@ -37,3 +35,5 @@ export class Node {
 		});
 	}
 }
+
+new Node('Test', 0, 0);

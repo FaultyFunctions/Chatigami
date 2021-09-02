@@ -21,7 +21,7 @@ export const WorkspaceStore = new Store<IWorkspaceStore>({
 	height: 0,
 	scale: 1,
 	gridEnabled: true,
-	gridSize: 100,
+	gridSize: 48,
 	mouseX: 0,
 	mouseY: 0
 });
