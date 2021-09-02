@@ -21,7 +21,7 @@ export default function AboutModal(
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>
-					<Center>Crochet v1.0</Center>
+					<Center>Chatigami v1.0</Center>
 				</ModalHeader>
 				<ModalBody></ModalBody>
 			</ModalContent>

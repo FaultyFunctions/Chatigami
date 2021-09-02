@@ -2,7 +2,7 @@
 
 import { Icon, IconProps } from '@chakra-ui/react';
 
-export const CrochetIcon = (props: IconProps): JSX.Element => (
+export const ChatigamiIcon = (props: IconProps): JSX.Element => (
 	<Icon viewBox='0 0 512 512' {...props}>
 		<path
 			fill='#9393ac'

@@ -24,7 +24,7 @@ export default function ShortcutModal(
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>
-					<Center>Crochet Shortcuts Guide</Center>
+					<Center>Chatigami Shortcuts Guide</Center>
 				</ModalHeader>
 				<ModalBody>
 					<SimpleGrid columns={3} spacing={10}>

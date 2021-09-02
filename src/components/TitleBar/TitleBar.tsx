@@ -2,13 +2,13 @@
 import MenuBar from './MenuBar';
 import ControlButtonCluster from './ControlButtonCluster';
 import { Flex, Center, FlexProps, IconProps } from '@chakra-ui/react';
-import { CrochetIcon } from 'icons';
+import { ChatigamiIcon } from 'icons';
 
 export default function TitleBar(): JSX.Element {
 	return (
 		<Flex {...titleBarMenuContainerProps}>
 			<Center>
-				<CrochetIcon {...crochetIconProps} />
+				<ChatigamiIcon {...chatigamiIconProps} />
 				<MenuBar />
 			</Center>
 			<Center flexGrow={1}>FileNameHere - FolderNameHere</Center>
@@ -28,7 +28,7 @@ const titleBarMenuContainerProps: FlexProps = {
 	}
 };
 
-const crochetIconProps: IconProps = {
+const chatigamiIconProps: IconProps = {
 	m: '10px 10px',
 	w: '16px',
 	h: '16px'

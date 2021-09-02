@@ -1,5 +1,5 @@
 {
-	"name": "crochet",
+	"name": "chatigami",
 	"version": "0.1.0",
 	"author": "FaultyFunctions",
 	"description": "An interactive dialogue editor for writers and programmers.",
@@ -63,8 +63,8 @@
 	"main": "./public/electron.js",
 	"homepage": ".",
 	"build": {
-		"appId": "com.electron.crochet",
-		"productName": "Crochet",
+		"appId": "com.electron.chatigami",
+		"productName": "Chatigami",
 		"files": [
 			"build/**/*",
 			"node_modules/**/*"
