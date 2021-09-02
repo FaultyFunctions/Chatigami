@@ -16,8 +16,7 @@
 		"dist:linux": "npm run clean:dist && npm run build && electron-builder -l -c.extraMetadata.main=build/electron.js",
 		"react-start": "react-scripts start",
 		"web": "react-scripts start",
-		"electron": "npm run start",
-		"format": "npx prettier --write **/**"
+		"prettify": "npx prettier --write **/**"
 	},
 	"dependencies": {
 		"@chakra-ui/icons": "^1.0.14",
@@ -79,7 +78,7 @@
 		},
 		"win": {
 			"target": "nsis",
-			"icon": "./public/assets/images/logo512.png"
+			"icon": "./public/assets/images/icon512.png"
 		},
 		"linux": {
 			"target": "deb",
