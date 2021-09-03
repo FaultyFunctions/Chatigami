@@ -3,10 +3,10 @@
 <h1 align="center">v0.1.0</h1>
 <p align="center">A visual node editor for stories.</p>
 
-Chatigami is a node-based narrative editor for [Chatterbox](https://github.com/JujuAdams/Chatterbox). It is currently a work in progress project very early in development.
+Chatigami is a node-based narrative editor for [Chatterbox](https://github.com/JujuAdams/Chatterbox). It is currently a work-in-progress project very early in development.
 
 # Roadmap
-Check out the current [GitKraken Board](https://app.gitkraken.com/glo/board/YQ_XjOhCCwARouFS) to see progress on the project.
+Check out the current [GitKraken Board](https://app.gitkraken.com/glo/board/YQ_XjOhCCwARouFS) to see progress on the project and upcoming features.
 
 # Running from source
 
