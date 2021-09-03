@@ -9,7 +9,11 @@ Chatigami is a node-based narrative editor for [Chatterbox](https://github.com/J
 Check out the current [GitKraken Board](https://app.gitkraken.com/glo/board/YQ_XjOhCCwARouFS) to see progress on the project and upcoming features.
 
 # Running from source
-
+Install [Node.js](https://nodejs.org/en/), clone the repo, then:
+```console
+$ npm install
+$ npm start
+```
 ### `npm start`
 
 Runs Chatigami in development mode within a local ElectronJS window.\
