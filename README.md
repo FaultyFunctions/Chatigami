@@ -14,7 +14,7 @@ Install [Node.js](https://nodejs.org/en/), clone the repo, then:
 $ npm install
 $ npm start
 ```
-### `npm start`
+#### `npm start`
 
 Runs Chatigami in development mode within a local ElectronJS window.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -24,26 +24,26 @@ You will also see any lint errors in the console.
 
 # Building from source
 
-### `npm run dist:win`
+#### `npm run dist:win`
 
 Package and build a ready for distribution application for Windows.
 
-### `npm run dist:mac`
+#### `npm run dist:mac`
 
 Package and build a ready for distribution application for macOS.
 
-### `npm run dist:linux`
+#### `npm run dist:linux`
 
 Package and build a ready for distribution application for Linux.
 
 # Other commands
 
-### `npm prettify`
+#### `npm run prettify`
 
 Formats the project's code using Prettier with the `.prettierrc.yaml` config.\
 It's important to use this before you make any pull requests.
 
-### `npm test`
+#### `npm run test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.\
