@@ -1,7 +1,7 @@
 <p align="center"><img src="./docs/assets/Chatigami.png" /></p>
 
 <h1 align="center">v0.1.0</h1>
-<p align="center">A visual node editor for stories.</p>
+<p align="center">A visual node editor for creating stories.</p>
 
 Chatigami is a node-based narrative editor for [Chatterbox](https://github.com/JujuAdams/Chatterbox). It is currently a work-in-progress project very early in development.
 
